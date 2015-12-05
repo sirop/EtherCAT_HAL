@@ -1,4 +1,4 @@
-component pdort2dc "Ethercat with DC clock";
+component pdort2free "Ethercat free run mode";
 
 pin io u32 controlWord; 
 pin io s32 targetVelocity;
@@ -179,7 +179,7 @@ EXTRA_SETUP() {
 	 ecrt_slave_config_sdo8( sc, 0x6060, 0, PROFILE_VELOCITY );
 	
 	 // configure SYNC signals for this slave
-     ecrt_slave_config_dc(sc, 0x0330, 250000, 0, 0, 0);
+     ecrt_slave_config_dc(sc, 0x0000, 0, 0, 0, 0); // free run mode
 
 	rtapi_print_msg(RTAPI_MSG_INFO,"Activating master...\n");
     if (ecrt_master_activate(master)) {
@@ -288,19 +288,7 @@ pin out s32 actualVelocity;*/
 
     	// send
     	rt_sem_p(&master_sem, TM_INFINITE);
-		//time_ns += 250000;
-		RTIME time_epoch_ns = rt_timer_read();
-        
-		uint64_t ec_time_ns=(time_epoch_ns/1000000000ULL- 946684800ULL)* 1000000000ULL+(time_epoch_ns-(time_epoch_ns/1000000000ULL)*1000000000ULL);
-		ecrt_master_application_time(master, ec_time_ns);
-  
-        if (sync_ref_counter>0) {
-              sync_ref_counter--;
-           } else {
-               sync_ref_counter = 3;
-               ecrt_master_sync_reference_clock(master);
-          }
-        ecrt_master_sync_slave_clocks(master);
+		
     	ecrt_domain_queue(domain1);
     //	rt_sem_v(&master_sem);
 
