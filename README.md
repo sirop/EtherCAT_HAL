@@ -1,5 +1,5 @@
 # EtherCAT_HAL
-EtherCAT HAL component
+EtherCAT HAL component for Copley  AEM-090-14.
 
 This is an attempt to write an EtherCAT HAL component following
 http://wiki.linuxcnc.org/cgi-bin/wiki.pl?Etherlab , but
