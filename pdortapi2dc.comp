@@ -7,7 +7,7 @@ gcc -o pdortapi2dc.o -I.  -D_GNU_SOURCE -D_REENTRANT -DTHREAD_FLAVOR_ID=2 -DRTAP
 -D_GNU_SOURCE -D_FORTIFY_SOURCE=0 -D__MODULE__ - mieee-fp -I/usr/include/linuxcnc \
 -fPIC -g -funwind-tables -Os -c pdortapi2dc.c
 
-gcc -shared -o pdortapi2dc.so -fPIC  pdortapi2dc.o  -Wl,-rpath,/usr/lib -L/usr/lib -llinuxcnchal -lethercat -lrt
+gcc -shared -o pdortapi2dc.so -fPIC  pdortapi2dc.o  -Wl,-rpath,/usr/lib -L/usr/lib -llinuxcnchal -lethercat_rtdm -lrt
 
 In order to avoid any false "error" messages
 copy to to the lib dir of the current RT flavour:
